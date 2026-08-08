@@ -3,144 +3,370 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f1115">
+<title>תאית</title>
+<meta name="description" content="לימוד תאית — אוצר מילים ושירים">
+<meta name="theme-color" content="#FAF9F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161A" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>תאית — חן</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="תאית">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&family=Noto+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&family=Noto+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#FAF9F7; --surface:#FFFFFF; --sunk:#F1EFEA;
+  --text:#1C1B19; --muted:#66635C; --line:#E4E0D8;
+  --accent:#0E7C6B; --accent-soft:#E3F2EE;
+  --shadow:0 1px 2px rgba(28,27,25,.04), 0 8px 24px -12px rgba(28,27,25,.10);
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){
   :root{
-    --bg:#0f1115; --surface:#171a21; --surface-2:#1e222b;
-    --line:#2a2f3a; --text:#e8eaed; --muted:#9aa2b1;
-    --accent:#5eead4; --accent-dim:#0d9488; --warn:#fbbf24;
+    --bg:#14161A; --surface:#1B1E24; --sunk:#22262E;
+    --text:#E9E7E3; --muted:#9DA3AC; --line:#2C313A;
+    --accent:#57D6C0; --accent-soft:#12332F;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
   }
-  @media (prefers-color-scheme: light){
-    :root{ --bg:#fbfbfd; --surface:#fff; --surface-2:#f2f4f8;
-      --line:#e2e6ee; --text:#14161b; --muted:#5f6875;
-      --accent:#0d9488; --accent-dim:#0d9488; --warn:#b45309; }
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:'Heebo',system-ui,-apple-system,sans-serif;
-    font-size:17px; line-height:1.7;
-    padding-bottom:env(safe-area-inset-bottom);
-  }
-  header{
-    position:sticky; top:0; z-index:10;
-    background:color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);
-    padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
-  }
-  .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-  .brand h1{font-size:17px;margin:0;font-weight:800;letter-spacing:-.02em}
-  .brand span{font-size:13px;color:var(--muted);font-weight:400}
-  nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  nav::-webkit-scrollbar{display:none}
-  nav button{
-    flex:0 0 auto; font-family:inherit; font-size:14px; font-weight:600;
-    padding:8px 15px; border-radius:999px; cursor:pointer;
-    background:var(--surface-2); color:var(--muted);
-    border:1px solid var(--line); transition:.15s;
-  }
-  nav button.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-  main{padding:22px 14px 80px; max-width:820px; margin:0 auto}
-  #doc>*:first-child{margin-top:0}
-  h1,h2,h3{line-height:1.35;letter-spacing:-.02em}
-  h1{font-size:26px;font-weight:800;margin:0 0 18px}
-  h2{
-    font-size:20px;font-weight:800;margin:38px 0 14px;
-    padding-top:18px;border-top:1px solid var(--line);
-  }
-  h3{font-size:16px;font-weight:600;margin:26px 0 10px;color:var(--accent)}
-  p{margin:0 0 14px}
-  strong{font-weight:600;color:var(--text)}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
-  hr{border:0;border-top:1px solid var(--line);margin:32px 0}
-  ul,ol{margin:0 0 16px;padding-inline-start:22px}
-  li{margin-bottom:7px}
-  blockquote{margin:0 0 16px;padding:12px 16px;background:var(--surface);border-radius:12px;
-    border-inline-start:3px solid var(--accent)}
-  code{
-    font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:.9em;
-    background:var(--surface-2); padding:2px 6px; border-radius:6px;
-    unicode-bidi:plaintext; color:var(--accent);
-  }
-  .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 20px;
-    border:1px solid var(--line);border-radius:14px;background:var(--surface)}
-  table{border-collapse:collapse;width:100%;font-size:15px}
-  th,td{
-    padding:11px 13px; text-align:start; vertical-align:top;
-    border-bottom:1px solid var(--line); unicode-bidi:plaintext;
-  }
-  th{background:var(--surface-2);font-weight:600;font-size:13px;
-    color:var(--muted);letter-spacing:.03em;white-space:nowrap}
-  tr:last-child td{border-bottom:0}
-  /* כתב תאי גדול וקריא */
-  td:has(> :is(.thai)), .thai{font-family:'Noto Sans Thai',sans-serif}
-  table td{font-family:'Heebo','Noto Sans Thai',sans-serif}
-  table td:nth-child(1){font-size:19px}
-  .loading{color:var(--muted);text-align:center;padding:60px 0}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'Assistant',system-ui,-apple-system,sans-serif;
+  font-size:17px; line-height:1.75; letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ---------- chrome ---------- */
+.bar{
+  position:sticky; top:0; z-index:30;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); -webkit-backdrop-filter:saturate(180%) blur(16px);
+  border-bottom:1px solid transparent; transition:border-color .2s;
+}
+.bar.scrolled{border-bottom-color:var(--line)}
+.bar-in{
+  max-width:760px; margin:0 auto; display:flex; align-items:center; gap:4px;
+  padding:calc(6px + env(safe-area-inset-top)) 8px 6px;
+}
+.icon-btn{
+  width:44px;height:44px;flex:0 0 44px;
+  display:grid;place-items:center;border-radius:12px;
+  color:var(--muted); transition:background-color .18s,color .18s;
+}
+.icon-btn:hover,.icon-btn:active{background:var(--sunk);color:var(--text)}
+.icon-btn[hidden]{display:none}
+.icon-btn svg{width:22px;height:22px;stroke-width:2}
+.bar-title{
+  flex:1; min-width:0; font-family:'Frank Ruhl Libre',serif; font-weight:700;
+  font-size:17px; text-align:center; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis;
+}
+main{max-width:760px;margin:0 auto;padding:0 18px 96px}
+
+/* ---------- home ---------- */
+.hero{padding:30px 2px 26px}
+.hero h1{
+  font-family:'Frank Ruhl Libre',serif; font-weight:700;
+  font-size:34px; line-height:1.2; margin:0 0 6px; letter-spacing:-.02em;
+}
+.hero p{margin:0;color:var(--muted);font-size:16px}
+.cards{display:flex;flex-direction:column;gap:11px}
+.card{
+  display:block; width:100%; text-align:start;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r); padding:17px 18px; box-shadow:var(--shadow);
+  transition:border-color .18s, transform .18s;
+}
+.card:hover{border-color:var(--accent)}
+.card:active{transform:scale(.985)}
+.card b{display:block;font-size:17.5px;font-weight:700;margin-bottom:2px}
+.card span{display:block;color:var(--muted);font-size:14.5px;line-height:1.55}
+
+/* ---------- search ---------- */
+.search{position:relative;margin:4px 0 22px}
+.search input{
+  width:100%; font:inherit; font-size:16px; color:var(--text);
+  background:var(--sunk); border:1px solid transparent;
+  border-radius:12px; padding:12px 44px 12px 40px;
+  transition:border-color .18s, background-color .18s;
+}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+.search svg{
+  position:absolute; inset-inline-start:13px; top:50%; transform:translateY(-50%);
+  width:18px;height:18px;color:var(--muted);pointer-events:none;stroke-width:2;
+}
+.search .clear{
+  position:absolute; inset-inline-end:4px; top:50%; transform:translateY(-50%);
+  width:36px;height:36px;display:grid;place-items:center;border-radius:9px;color:var(--muted);
+}
+.search .clear svg{position:static;transform:none;width:16px;height:16px}
+.hits{margin:-14px 0 20px;font-size:14px;color:var(--muted)}
+
+/* ---------- document ---------- */
+.doc h1:first-child{
+  font-family:'Frank Ruhl Libre',serif;font-weight:700;
+  font-size:29px;line-height:1.25;margin:6px 0 18px;letter-spacing:-.02em;
+}
+.doc h1{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:26px;margin:36px 0 14px}
+.doc h3{
+  font-family:'Frank Ruhl Libre',serif;font-weight:700;
+  font-size:17.5px;margin:26px 0 10px;color:var(--accent);
+}
+.doc p{margin:0 0 15px}
+.doc strong{font-weight:700}
+.doc em{font-style:normal;font-family:'Noto Sans Thai','Assistant',sans-serif;color:var(--muted)}
+.doc a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.doc hr{display:none}
+.doc ul,.doc ol{margin:0 0 16px;padding-inline-start:20px}
+.doc li{margin-bottom:8px}
+.doc li::marker{color:var(--accent)}
+.doc blockquote{
+  margin:0 0 16px;padding:13px 16px;background:var(--surface);
+  border:1px solid var(--line);border-inline-start:3px solid var(--accent);border-radius:12px;
+}
+.doc code{
+  font-family:'Noto Sans Thai',ui-monospace,monospace;font-size:.94em;
+  background:var(--accent-soft);color:var(--accent);
+  padding:2px 7px;border-radius:7px;unicode-bidi:plaintext;
+}
+.lead{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;margin:0 0 24px;box-shadow:var(--shadow);
+}
+.lead>*:last-child{margin-bottom:0}
+
+/* accordion */
+details{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);margin-bottom:10px;overflow:hidden;
+}
+details[open]{box-shadow:var(--shadow)}
+summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  padding:15px 17px;min-height:56px;
+  font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:17px;
+  transition:background-color .18s;
+}
+summary::-webkit-details-marker{display:none}
+summary:hover{background:var(--sunk)}
+.chev{
+  flex:0 0 18px;width:18px;height:18px;color:var(--muted);
+  transition:transform .2s ease; stroke-width:2.5;
+}
+details[open]>summary .chev{transform:rotate(-90deg)}
+html[dir=rtl] .chev{transform:rotate(180deg)}
+html[dir=rtl] details[open]>summary .chev{transform:rotate(-90deg)}
+.body{padding:2px 17px 18px;border-top:1px solid var(--line)}
+.body>*:last-child{margin-bottom:0}
+.body>h3:first-child{margin-top:16px}
+
+/* tables */
+.tw{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  margin:0 0 18px;border:1px solid var(--line);border-radius:12px;
+}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{
+  padding:11px 14px;text-align:start;vertical-align:top;
+  border-bottom:1px solid var(--line);unicode-bidi:plaintext;
+}
+th{
+  background:var(--sunk);font-weight:700;font-size:12.5px;
+  color:var(--muted);letter-spacing:.04em;white-space:nowrap;
+  position:sticky;top:0;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--sunk) 45%,transparent)}
+td{font-family:'Assistant','Noto Sans Thai',sans-serif}
+td:first-child{font-size:19px;font-weight:600;white-space:nowrap}
+tr[hidden]{display:none}
+
+.empty{color:var(--muted);text-align:center;padding:56px 16px}
+.spin{
+  width:22px;height:22px;margin:64px auto;border-radius:50%;
+  border:2px solid var(--line);border-top-color:var(--accent);
+  animation:sp .7s linear infinite;
+}
+@keyframes sp{to{transform:rotate(360deg)}}
+.top{
+  position:fixed;inset-inline-end:16px;bottom:calc(16px + env(safe-area-inset-bottom));
+  width:46px;height:46px;border-radius:50%;z-index:20;
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:grid;place-items:center;color:var(--muted);
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.top.on{opacity:1;pointer-events:auto}
+.top svg{width:20px;height:20px;stroke-width:2}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand"><h1>תאית</h1><span>ภาษากลาง · קלאנג</span></div>
-  <nav id="nav"></nav>
-</header>
-<main><div id="doc" class="loading">טוען…</div></main>
+
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <button class="icon-btn" id="back" hidden aria-label="חזרה">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="bar-title" id="title">תאית</div>
+    <div style="width:44px;flex:0 0 44px"></div>
+  </div>
+</div>
+
+<main id="view"><div class="spin" role="status" aria-label="טוען"></div></main>
+
+<button class="top" id="top" aria-label="חזרה למעלה">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script>
-const nav = document.getElementById('nav');
-const doc = document.getElementById('doc');
-let files = [];
+const view=document.getElementById('view'), bar=document.getElementById('bar'),
+      back=document.getElementById('back'), titleEl=document.getElementById('title'),
+      topBtn=document.getElementById('top');
+let files=[];
 
-function wrapTables(){
-  doc.querySelectorAll('table').forEach(t=>{
-    if(t.parentElement.classList.contains('tw')) return;
-    const w=document.createElement('div'); w.className='tw';
-    t.parentNode.insertBefore(w,t); w.appendChild(t);
+const ICON={
+  chev:'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+};
+
+addEventListener('scroll',()=>{
+  bar.classList.toggle('scrolled',scrollY>4);
+  topBtn.classList.toggle('on',scrollY>600);
+},{passive:true});
+topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+back.onclick=()=>{location.hash='';};
+
+function html(md){
+  const d=document.createElement('div');
+  d.innerHTML=marked.parse(md,{mangle:false,headerIds:false});
+  d.querySelectorAll('table').forEach(t=>{
+    const w=document.createElement('div');w.className='tw';
+    t.parentNode.insertBefore(w,t);w.appendChild(t);
   });
+  d.querySelectorAll('a[href^="http"]').forEach(a=>{a.target='_blank';a.rel='noopener noreferrer';});
+  return d;
 }
 
-async function load(f, btn){
-  doc.className='loading'; doc.textContent='טוען…';
-  [...nav.children].forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  try{
-    const r = await fetch(f.file + '?v=' + Date.now());
-    if(!r.ok) throw 0;
-    doc.className=''; doc.innerHTML = marked.parse(await r.text());
-    wrapTables();
-    doc.querySelectorAll('a[href$=".md"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const t=[...nav.children].find(b=>b.dataset.file===a.getAttribute('href'));
-        if(t){ e.preventDefault(); t.click(); }
-      });
-    });
-    window.scrollTo({top:0});
-    location.hash = encodeURIComponent(f.file);
-  }catch(e){
-    doc.className=''; doc.innerHTML='<p>לא הצלחתי לטעון את הקובץ.</p>';
+/* ---------- home ---------- */
+function home(){
+  titleEl.textContent='תאית'; back.hidden=true;
+  view.innerHTML=`
+    <div class="hero">
+      <h1>תאית</h1>
+      <p>ภาษากลาง · השפה של בנגקוק</p>
+    </div>
+    <div class="cards">${files.map((f,i)=>
+      `<button class="card" data-i="${i}"><b>${f.title}</b><span>${f.desc||''}</span></button>`).join('')}</div>`;
+  view.querySelectorAll('.card').forEach(c=>{
+    c.onclick=()=>{location.hash=encodeURIComponent(files[c.dataset.i].file);};
+  });
+  scrollTo({top:0});
+}
+
+/* ---------- document ---------- */
+async function open_(f){
+  titleEl.textContent=f.title; back.hidden=false;
+  view.innerHTML='<div class="spin" role="status" aria-label="טוען"></div>';
+  let md;
+  try{ const r=await fetch(f.file+'?v='+Date.now()); if(!r.ok)throw 0; md=await r.text(); }
+  catch(e){ view.innerHTML='<p class="empty">לא הצלחתי לטעון את הקובץ.</p>'; return; }
+
+  md=md.replace(/^#\s+.*\n/,'');                     // כותרת כבר בסרגל
+  const parts=md.split(/\n(?=##\s)/);
+  const intro=parts[0].startsWith('##')?'':parts.shift();
+
+  view.innerHTML=`
+    <div class="search">
+      ${ICON.search}
+      <input type="search" id="q" placeholder="חיפוש מילה, תאית או עברית" autocomplete="off" enterkeyhint="search" aria-label="חיפוש">
+      <button class="clear" id="qx" hidden aria-label="נקה חיפוש">${ICON.x}</button>
+    </div>
+    <div class="hits" id="hits" hidden></div>
+    <div class="doc" id="doc"></div>`;
+
+  const doc=view.querySelector('#doc');
+  if(intro.trim()){
+    const lead=document.createElement('div'); lead.className='lead';
+    lead.append(...html(intro).childNodes); doc.append(lead);
   }
+  parts.forEach((sec,i)=>{
+    const nl=sec.indexOf('\n');
+    const head=sec.slice(0,nl<0?undefined:nl).replace(/^##\s*/,'');
+    const d=document.createElement('details'); if(i===0) d.open=true;
+    d.innerHTML=`<summary>${ICON.chev}<span>${head}</span></summary><div class="body"></div>`;
+    d.querySelector('.body').append(...html(nl<0?'':sec.slice(nl+1)).childNodes);
+    doc.append(d);
+  });
+
+  wireSearch(doc);
+  scrollTo({top:0});
 }
 
-(async ()=>{
-  files = await (await fetch('files.json?v='+Date.now())).json();
-  files.forEach((f,i)=>{
-    const b=document.createElement('button');
-    b.textContent=f.title; b.dataset.file=f.file;
-    b.onclick=()=>load(f,b);
-    nav.appendChild(b);
-  });
-  const want = decodeURIComponent(location.hash.slice(1));
-  const idx = Math.max(0, files.findIndex(f=>f.file===want));
-  nav.children[idx].click();
+/* ---------- live filter ---------- */
+function wireSearch(doc){
+  const q=view.querySelector('#q'), qx=view.querySelector('#qx'), hits=view.querySelector('#hits');
+  const secs=[...doc.querySelectorAll('details')];
+  const state=secs.map(d=>({d,rows:[...d.querySelectorAll('tbody tr')],
+                            blocks:[...d.querySelectorAll('.body>p, .body>ul>li, .body>ol>li, .body>h3, .body>blockquote')]}));
+  const lead=doc.querySelector('.lead');
+
+  const run=()=>{
+    const t=q.value.trim().toLowerCase();
+    qx.hidden=!t;
+    if(!t){
+      state.forEach(({d,rows,blocks},i)=>{
+        d.hidden=false; d.open=(i===0);
+        rows.forEach(r=>r.hidden=false); blocks.forEach(b=>b.style.display='');
+        d.querySelectorAll('.tw').forEach(w=>w.hidden=false);
+      });
+      if(lead)lead.hidden=false; hits.hidden=true; return;
+    }
+    if(lead)lead.hidden=true;
+    let n=0;
+    state.forEach(({d,rows,blocks})=>{
+      let m=0;
+      rows.forEach(r=>{const h=r.textContent.toLowerCase().includes(t); r.hidden=!h; if(h)m++;});
+      blocks.forEach(b=>{const h=b.textContent.toLowerCase().includes(t); b.style.display=h?'':'none'; if(h)m++;});
+      d.querySelectorAll('.tw').forEach(w=>{
+        w.hidden=![...w.querySelectorAll('tbody tr')].some(r=>!r.hidden);
+      });
+      const headMatch=d.querySelector('summary').textContent.toLowerCase().includes(t);
+      d.hidden=!(m||headMatch); d.open=true; n+=m;
+    });
+    hits.hidden=false;
+    hits.textContent=n?`${n} תוצאות`:'אין תוצאות';
+  };
+  q.addEventListener('input',run);
+  qx.onclick=()=>{q.value='';run();q.focus();};
+}
+
+/* ---------- router ---------- */
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  const f=files.find(x=>x.file===h);
+  f?open_(f):home();
+}
+addEventListener('hashchange',route);
+
+(async()=>{
+  try{ files=await (await fetch('files.json?v='+Date.now())).json(); }
+  catch(e){ view.innerHTML='<p class="empty">לא הצלחתי לטעון את הרשימה.</p>'; return; }
+  route();
 })();
 </script>
 </body>
